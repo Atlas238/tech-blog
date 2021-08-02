@@ -23,13 +23,13 @@ Blogpost.init(
             allowNull: false,
         },
         date: {
-            type: DataTypes.DATE,
+            type: DataTypes.DATEONLY,
             allowNull: false,
         },
-        author_id: {
+        userId: {
             type: DataTypes.INTEGER,
             allowNull: true,
-            references:{
+            references: {
                 model: 'user',
                 key: 'id',
             },
@@ -37,6 +37,7 @@ Blogpost.init(
     },
     {
         sequelize,
+        timestamps: false,
         freezeTableName: true,
         underscored: true,
         modelName: 'blogpost'
