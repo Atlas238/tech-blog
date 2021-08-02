@@ -4,7 +4,12 @@ const { User, Blogpost, Comment } = require('../models');
 // GET all blogposts for homepage
 router.get('/', async (req, res) => {
     try {
-        const blogsData = await Blogpost.findAll();
+        const blogsData = await Blogpost.findAll({
+            include: {
+                model: User,
+                attributes: ['id', 'name'],
+            }});
+            // TODO: add map
         const blogs = Object.values(JSON.parse(JSON.stringify(blogsData)));
         console.log(blogs);
         res.status(200).render('homepage', { blogs });
@@ -21,8 +26,10 @@ router.get('/blogposts/:id', async (req, res) => {
                 id: req.params.id,
             },
         });
-        console.log(blogData);
-        res.status(200).render('singlepost', { blogData })
+        const blog = Object.values(JSON.parse(JSON.stringify(blogData)));
+        console.log(blog);
+        // TODO: FIX RENDER
+        res.status(200).render('singlepost', { blog })
     } catch (err) {
         res.status(500).json(err);
     }
