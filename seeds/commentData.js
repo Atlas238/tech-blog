@@ -3,7 +3,7 @@ const { Comment } = require('../models');
 const commentData = [
     {
         content: 'Wow what a cool comment system!',
-        date: new Date.now(),
+        date: new Date,
         author_id: 2,
         blogpost_id: 1,
     }
