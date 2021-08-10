@@ -10,8 +10,9 @@ router.get('/', async (req, res) => {
                 attributes: ['id', 'name'],
             }});
             // TODO: add map
-        const blogs = Object.values(JSON.parse(JSON.stringify(blogsData)));
-        console.log(blogs);
+        const blogs = blogsData.map((blog) => {
+            return blog.get({plain: true});
+        });
         res.status(200).render('homepage', { blogs });
     } catch (err) {
         res.status(500).json(err);
@@ -25,11 +26,12 @@ router.get('/blogposts/:id', async (req, res) => {
             where: {
                 id: req.params.id,
             },
+            include: [Comment],
         });
-        const blog = Object.values(JSON.parse(JSON.stringify(blogData)));
-        console.log(blog);
-        // TODO: FIX RENDER
-        res.status(200).render('singlepost', { blog })
+        console.log(blogData);
+        const blogDetails = blogData.get({plain: true});
+        console.log(blogDetails);
+        res.status(200).render('singlepost', blogDetails);
     } catch (err) {
         res.status(500).json(err);
     }

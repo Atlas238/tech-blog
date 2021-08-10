@@ -26,7 +26,7 @@ Blogpost.init(
             type: DataTypes.DATEONLY,
             allowNull: false,
         },
-        userId: {
+        author: {
             type: DataTypes.INTEGER,
             allowNull: true,
             references: {
